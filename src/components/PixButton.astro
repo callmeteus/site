@@ -1,0 +1,62 @@
+---
+import { site } from "../config/site";
+import BrandIcon from "./Icon.astro";
+import LangBadge from "./LangBadge.astro";
+import { Copy, Check } from "@lucide/astro";
+---
+
+<button
+    type="button"
+    id="pix-copy-btn"
+    data-pix-key={site.pixKey}
+    class="glass-card group flex min-h-[3.75rem] w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-3 text-left transition-all duration-200 hover:border-accent-violet/30 hover:bg-white/[0.06] active:scale-[0.99] sm:gap-4 sm:px-4"
+    aria-label="Copy Pix key"
+>
+    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#32BCAD] text-white shadow-lg sm:h-11 sm:w-11">
+        <BrandIcon name="simple-icons:pix" size={20} />
+    </span>
+    <span class="min-w-0 flex-1">
+        <span class="block text-sm font-semibold text-zinc-100 sm:text-base">Pix</span>
+        <span class="block truncate text-xs text-muted sm:text-sm">{site.pixKey}</span>
+    </span>
+    <span class="flex shrink-0 items-center gap-2">
+        <LangBadge languages={["pt"]} />
+        <span id="pix-copy-icon" class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-muted">
+            <Copy size={18} id="pix-icon-copy" aria-hidden="true" />
+            <Check size={18} id="pix-icon-check" class="hidden text-accent-cyan" aria-hidden="true" />
+        </span>
+    </span>
+</button>
+<p id="pix-feedback" class="mt-2 hidden text-center text-xs font-medium text-accent-cyan" role="status">
+    Copied!
+</p>
+
+<script>
+    const btn = document.getElementById("pix-copy-btn");
+    const feedback = document.getElementById("pix-feedback");
+    const iconCopy = document.getElementById("pix-icon-copy");
+    const iconCheck = document.getElementById("pix-icon-check");
+
+    btn?.addEventListener("click", async () => {
+        const key = btn.getAttribute("data-pix-key");
+        if (!key) return;
+
+        try {
+            await navigator.clipboard.writeText(key);
+            feedback?.classList.remove("hidden");
+            iconCopy?.classList.add("hidden");
+            iconCheck?.classList.remove("hidden");
+            btn.setAttribute("aria-label", "Pix key copied");
+
+            window.setTimeout(() => {
+                feedback?.classList.add("hidden");
+                iconCopy?.classList.remove("hidden");
+                iconCheck?.classList.add("hidden");
+                btn.setAttribute("aria-label", "Copy Pix key");
+            }, 2000);
+        } catch {
+            feedback!.textContent = "Could not copy. Select manually.";
+            feedback?.classList.remove("hidden");
+        }
+    });
+</script>

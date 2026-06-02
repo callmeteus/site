@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  <circle cx="200" cy="150" r="300" fill="#8b5cf6" opacity="0.25"/>
+  <circle cx="1000" cy="480" r="280" fill="#22d3ee" opacity="0.2"/>
+  <text x="600" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="120" font-weight="800" fill="url(#g)">Gio</text>
+  <text x="600" y="380" text-anchor="middle" font-family="system-ui,sans-serif" font-size="36" fill="#a1a1aa">gio.pet</text>
+  <defs>
+    <linearGradient id="g" x1="400" y1="200" x2="800" y2="320">
+      <stop stop-color="#c4b5fd"/>
+      <stop offset="0.5" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+</svg>

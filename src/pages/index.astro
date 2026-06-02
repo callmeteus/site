@@ -1,17 +1,22 @@
 ---
-
+import LandingLayout from "../layouts/LandingLayout.astro";
+import LandingBackground from "../components/landing/LandingBackground.astro";
+import LandingHero from "../components/landing/LandingHero.astro";
+import LinkSection from "../components/landing/LinkSection.astro";
+import ProjectsSection from "../components/landing/ProjectsSection.astro";
+import BlogTeaser from "../components/landing/BlogTeaser.astro";
+import LandingFooter from "../components/landing/LandingFooter.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<LandingLayout>
+    <LandingBackground />
+    <div class="relative z-10">
+        <LandingHero />
+        <LinkSection group="social" />
+        <LinkSection group="support" class="section-reveal-delay-1" />
+        <LinkSection group="telegram" class="section-reveal-delay-2" />
+        <ProjectsSection />
+        <BlogTeaser />
+        <LandingFooter />
+    </div>
+</LandingLayout>

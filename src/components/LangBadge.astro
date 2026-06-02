@@ -1,0 +1,52 @@
+---
+
+import type { LinkLanguage } from "../config/links";
+
+import FlagIcon from "./FlagIcon.astro";
+
+import { getFlagCode, getFlagLabel } from "../utils/flags";
+
+
+
+interface Props {
+
+    languages: LinkLanguage[];
+
+}
+
+
+
+const { languages } = Astro.props;
+
+---
+
+
+
+<div class="flex shrink-0 items-center gap-1" aria-label={languages.map((l) => getFlagLabel(l)).join(", ")}>
+
+    {languages.map((lang) => (
+
+        <span
+
+            class="inline-flex min-h-6 min-w-6 items-center justify-center gap-1 rounded-md bg-white/5 px-1.5"
+
+            title={getFlagLabel(lang)}
+
+        >
+
+            <span class="sr-only">{getFlagLabel(lang)}</span>
+
+            <FlagIcon lang={lang} size={14} />
+
+            <span class="text-[10px] font-semibold tracking-wide text-muted" aria-hidden="true">
+
+                {getFlagCode(lang)}
+
+            </span>
+
+        </span>
+
+    ))}
+
+</div>
+
