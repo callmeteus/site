@@ -9,10 +9,10 @@ import { Copy, Check } from "@lucide/astro";
     type="button"
     id="pix-copy-btn"
     data-pix-key={site.pixKey}
-    class="glass-card group flex min-h-[3.75rem] w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-3 text-left transition-all duration-200 hover:border-accent-violet/30 hover:bg-white/[0.06] active:scale-[0.99] sm:gap-4 sm:px-4"
+    class="glass-card glass-card-interactive group flex min-h-[3.75rem] w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-3 text-left hover:bg-white/[0.06] sm:gap-4 sm:px-4"
     aria-label="Copy Pix key"
 >
-    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#32BCAD] text-white shadow-lg sm:h-11 sm:w-11">
+    <span class="link-icon-wrap flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#32BCAD] text-white shadow-lg sm:h-11 sm:w-11">
         <BrandIcon name="simple-icons:pix" size={20} />
     </span>
     <span class="min-w-0 flex-1">

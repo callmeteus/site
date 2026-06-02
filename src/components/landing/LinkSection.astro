@@ -6,21 +6,20 @@ import PixButton from "../PixButton.astro";
 
 interface Props {
     group: LinkGroup;
-    class?: string;
 }
 
-const { group, class: className = "" } = Astro.props;
+const { group } = Astro.props;
 const sectionLinks = getLinksByGroup(group);
 const title = linkGroups[group];
 ---
 
 {sectionLinks.length > 0 && (
-    <section class:list={["section-reveal section-reveal-delay-1 px-4 py-6 sm:px-6", className]}>
+    <section class="scroll-reveal px-4 py-6 sm:px-6">
         <div class="mx-auto max-w-md md:max-w-lg">
             <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
                 {title}
             </h2>
-            <div class="flex flex-col gap-3">
+            <div class="stagger-links flex flex-col gap-3">
                 {sectionLinks.map((link) => (
                     <LinkButton link={link} />
                 ))}

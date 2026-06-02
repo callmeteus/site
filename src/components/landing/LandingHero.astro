@@ -3,14 +3,14 @@ import { site } from "../../config/site";
 import LanguageNote from "../LanguageNote.astro";
 ---
 
-<section class="section-reveal px-4 pt-10 pb-8 sm:px-6 sm:pt-14 sm:pb-10" style="padding-top: max(2.5rem, env(safe-area-inset-top));">
-    <div class="mx-auto max-w-md text-center md:max-w-lg">
-        <div class="relative mx-auto mb-6 inline-block">
+<section class="px-4 pt-10 pb-8 sm:px-6 sm:pt-14 sm:pb-10" style="padding-top: max(2.5rem, env(safe-area-inset-top));">
+    <div class="hero-stagger mx-auto max-w-md text-center md:max-w-lg">
+        <div class="relative mx-auto mb-6 inline-block hero-avatar-float">
             <div
-                class="absolute -inset-1 rounded-full bg-gradient-to-br from-accent-violet via-accent-cyan to-accent-violet opacity-80 blur-md"
+                class="hero-avatar-ring absolute -inset-1.5 rounded-full bg-gradient-to-br from-accent-violet via-accent-cyan to-fuchsia-400 opacity-80 blur-md"
                 aria-hidden="true"
             ></div>
-            <div class="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-white/10 bg-surface-raised sm:h-28 sm:w-28">
+            <div class="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-white/15 bg-surface-raised shadow-[0_0_32px_rgba(139,92,246,0.25)] sm:h-28 sm:w-28">
                 <img
                     src="/avatar.jpg"
                     alt={site.name}
@@ -22,7 +22,7 @@ import LanguageNote from "../LanguageNote.astro";
                 />
             </div>
         </div>
-        <h1 class="font-display text-[clamp(2.25rem,8vw,3.25rem)] font-extrabold leading-tight tracking-tight text-gradient">
+        <h1 class="font-display text-[clamp(2.25rem,8vw,3.25rem)] font-extrabold leading-tight tracking-tight text-gradient-animated">
             {site.name}
         </h1>
         <p class="mt-2 text-sm text-muted sm:text-base">

@@ -8,7 +8,7 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
 ---
 
 {recentPosts.length > 0 && (
-    <section class="section-reveal section-reveal-delay-3 px-4 py-6 pb-12 sm:px-6 sm:pb-16">
+    <section class="scroll-reveal px-4 py-6 pb-12 sm:px-6 sm:pb-16">
         <div class="mx-auto max-w-md md:max-w-lg">
             <div class="mb-4 flex items-end justify-between gap-4">
                 <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
@@ -16,17 +16,17 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
                 </h2>
                 <a
                     href="/blog"
-                    class="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-accent-cyan transition-colors hover:text-accent-violet"
+                    class="group/viewall inline-flex min-h-11 items-center gap-1 text-sm font-medium text-accent-cyan transition-all hover:gap-2 hover:text-accent-violet"
                 >
                     View all
-                    <ArrowRight size={16} aria-hidden="true" />
+                    <ArrowRight size={16} class="arrow-nudge transition-transform group-hover/viewall:translate-x-0.5" aria-hidden="true" />
                 </a>
             </div>
-            <div class="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:grid sm:grid-cols-1 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0">
+            <div class="stagger-links flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:grid sm:grid-cols-1 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0">
                 {recentPosts.map((post) => (
                     <a
                         href={`/blog/${post.id}`}
-                        class="glass-card group w-[min(85vw,20rem)] shrink-0 snap-start rounded-2xl p-4 transition-all duration-200 hover:border-accent-violet/30 hover:bg-white/[0.06] sm:w-auto"
+                        class="glass-card glass-card-interactive group w-[min(85vw,20rem)] shrink-0 snap-start rounded-2xl p-4 hover:bg-white/[0.06] sm:w-auto"
                     >
                         <time
                             datetime={post.data.date.toISOString()}
@@ -47,7 +47,7 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
                         {post.data.tags.length > 0 && (
                             <div class="mt-3 flex flex-wrap gap-1">
                                 {post.data.tags.slice(0, 3).map((tag) => (
-                                    <span class="rounded-md bg-white/5 px-2 py-0.5 text-[10px] font-medium text-zinc-400">
+                                    <span class="rounded-md bg-white/5 px-2 py-0.5 text-[10px] font-medium text-zinc-400 transition-colors group-hover:bg-accent-violet/10">
                                         {tag}
                                     </span>
                                 ))}

@@ -13,13 +13,13 @@ const { link } = Astro.props;
 
 <a
     href={link.href}
-    class="glass-card group flex min-h-[3.75rem] w-full items-center gap-3 rounded-2xl px-3 py-3 transition-all duration-200 hover:border-accent-violet/30 hover:bg-white/[0.06] active:scale-[0.99] sm:gap-4 sm:px-4"
+    class="glass-card glass-card-interactive group flex min-h-[3.75rem] w-full items-center gap-3 rounded-2xl px-3 py-3 hover:bg-white/[0.06] sm:gap-4 sm:px-4"
     target={link.external ? "_blank" : undefined}
     rel={link.external ? "noopener noreferrer" : undefined}
 >
     <span
         class:list={[
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg sm:h-11 sm:w-11",
+            "link-icon-wrap flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg sm:h-11 sm:w-11",
             link.accentClass,
         ]}
     >
@@ -40,7 +40,7 @@ const { link } = Astro.props;
         {link.external && (
             <ArrowUpRight
                 size={16}
-                class="text-muted opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-60"
+                class="arrow-nudge text-muted opacity-60 sm:opacity-50"
                 aria-hidden="true"
             />
         )}
