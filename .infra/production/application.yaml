@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/techtail/gio-site.git
+    repoURL: https://github.com/callmeteus/site.git
     targetRevision: master
     path: .infra/production/manifests
   destination:
