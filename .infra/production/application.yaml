@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/techtail/gio-site.git
-    targetRevision: main
+    targetRevision: master
     path: .infra/production/manifests
   destination:
     server: https://kubernetes.default.svc
