@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gio-site
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/techtail/gio-site.git
+    targetRevision: main
+    path: .infra/production/manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gio-site
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

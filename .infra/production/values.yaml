@@ -1,0 +1,22 @@
+app:
+  name: gio-site
+  namespace: gio-site
+
+image:
+  site:
+    repository: ghcr.io/techtail/gio-site
+    tag: latest
+
+nodeSelector:
+  node-role: local
+
+http:
+  enabled: true
+  hostnames:
+    - gio.pet
+    - www.gio.pet
+  tls: true
+
+netbird:
+  reverseProxy:
+    enabled: false
