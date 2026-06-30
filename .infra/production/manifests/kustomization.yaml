@@ -5,6 +5,7 @@ namespace: gio-site
 
 resources:
   - namespace.yaml
+  - build-job.yaml
   - deployment.yaml
   - ingress.yaml
   - certificate.yaml

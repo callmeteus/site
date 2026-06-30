@@ -1,0 +1,78 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: build-gio-site
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        node-role: local
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - 10.43.0.10
+        searches:
+          - gio-site.svc.cluster.local
+          - svc.cluster.local
+          - cluster.local
+        options:
+          - name: ndots
+            value: "1"
+      initContainers:
+        - name: git-clone
+          image: alpine:3.21
+          env:
+            - name: GIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-clone
+                  key: token
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              apk add --no-cache git
+              git clone --depth 1 --branch master \
+                "https://x-access-token:${GIT_TOKEN}@github.com/callmeteus/site.git" \
+                /workspace/repo
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+      containers:
+        - name: kaniko
+          image: registry.gitlab.com/gitlab-ci-utils/container-images/kaniko:debug
+          args:
+            - --context=dir:///workspace/repo
+            - --dockerfile=/workspace/repo/Dockerfile
+            - --destination=ghcr.io/techtail/gio-site:latest
+            - --cache=true
+            - --verbosity=info
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 2Gi
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+            - name: docker-config
+              mountPath: /kaniko/.docker
+      volumes:
+        - name: workspace
+          emptyDir: {}
+        - name: docker-config
+          secret:
+            secretName: ghcr-push
+            items:
+              - key: .dockerconfigjson
+                path: config.json
