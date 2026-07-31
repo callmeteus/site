@@ -1,43 +1,113 @@
-# Astro Starter Kit: Minimal
+<div align="center">
 
-```sh
-npm create astro@latest -- --template minimal
-```
+# Gio Site
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> Personal portfolio at [gio.pet](https://gio.pet)
 
-## 🚀 Project Structure
+**Astro 6 static site: links hub, micro blog, and portfolio for a developer, modder, and creative tinkerer.**
 
-Inside of your Astro project, you'll see the following folders and files:
+[![Astro](https://img.shields.io/badge/Site-Astro%206-purple.svg)](#)
+[![Tailwind CSS](https://img.shields.io/badge/CSS-Tailwind%20v4-blue.svg)](#)
+[![Node](https://img.shields.io/badge/Node-%3E%3D22.12-green.svg)](#)
+
+[Get Started](#get-started) • [Features](#features) • [Architecture](#architecture) • [Development](#development) • [Deploy](#deploy)
+
+</div>
+
+---
+
+## What Is Gio Site?
+
+Gio Site is a single-page Astro portfolio for [gio.pet](https://gio.pet). It surfaces social links, a short bio, music and art side projects, and a lightweight tech blog.
+
+Content and SEO metadata live in `src/config/site.ts`. The site is static HTML with Tailwind CSS v4 theme tokens in `src/styles/global.css`.
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+  [ Browser @ gio.pet ]
+           |
+           v
+  [ Astro 6 + Tailwind v4 ]
+           |
+           v
+  [ Static dist/ via nginx Docker image ]
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Features
 
-Any static assets, like images, can be placed in the `public/` directory.
+- **Personal landing page** with bio, location, and link cards.
+- **Micro blog** powered by Astro content collections and MDX.
+- **SEO helpers** via `@astrojs/sitemap` and Open Graph assets in `public/`.
+- **Icon set** via `astro-icon` and Lucide Astro components.
+- **Docker deploy** with nginx and external `cloudflared` network.
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## Get Started
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+From `Sites/gio-site/`:
 
-## 👀 Want to learn more?
+```bash
+npm install
+npm run dev
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Service        | URL                        |
+| -------------- | -------------------------- |
+| Dev server     | http://localhost:4321/     |
+| Production     | https://gio.pet            |
+
+Build and preview:
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## Architecture
+
+| Path                  | Responsibility                          |
+| --------------------- | --------------------------------------- |
+| `src/config/site.ts`  | Name, domain, bio, SEO, PIX key         |
+| `src/components/`     | Header, footer, blog cards, icons       |
+| `src/pages/`          | File-based routes (`index.astro`, blog) |
+| `src/content/`        | MDX blog posts                          |
+| `public/`             | Favicon, OG image, robots.txt           |
+| `Dockerfile`          | Multi-stage Astro build + nginx         |
+
+---
+
+## Development
+
+| Command           | Action                              |
+| ----------------- | ----------------------------------- |
+| `npm run dev`     | Astro dev server on port 4321       |
+| `npm run build`   | Static output to `dist/`            |
+| `npm run preview` | Serve production build locally      |
+
+Edit copy and links in `src/config/site.ts` before publishing.
+
+---
+
+## Deploy
+
+```bash
+docker compose up --build
+```
+
+The service expects an external Docker network named `cloudflared` (same pattern as other sites in this workspace).
+
+---
+
+## Documentation
+
+- [AGENTS.md](../../AGENTS.md) - workspace coding standards and Markdown style.
+
+---
+
+## License
+
+License not specified yet.
