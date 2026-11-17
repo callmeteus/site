@@ -1,36 +1,78 @@
 ---
 import { site } from "../../config/site";
 import LanguageNote from "../LanguageNote.astro";
+import { ArrowDownRight } from "@lucide/astro";
+
+const roles = ["Developer", "Modder", "Creative tinkerer"];
 ---
 
-<section class="px-4 pt-10 pb-8 sm:px-6 sm:pt-14 sm:pb-10" style="padding-top: max(2.5rem, env(safe-area-inset-top));">
-    <div class="hero-stagger mx-auto max-w-md text-center md:max-w-lg">
-        <div class="relative mx-auto mb-6 inline-block hero-avatar-float">
-            <div
-                class="hero-avatar-ring absolute -inset-1.5 rounded-full bg-gradient-to-br from-accent-violet via-accent-cyan to-fuchsia-400 opacity-80 blur-md"
-                aria-hidden="true"
-            ></div>
-            <div class="relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-2 border-white/15 bg-surface-raised shadow-[0_0_32px_rgba(139,92,246,0.25)] sm:h-28 sm:w-28">
-                <img
-                    src="/avatar.jpg"
-                    alt={site.name}
-                    width={112}
-                    height={112}
-                    class="h-full w-full object-cover"
-                    loading="eager"
-                    decoding="async"
-                />
+<section id="top" class="scroll-mt-16 px-4 pt-12 pb-8 sm:px-6 sm:pt-16 sm:pb-12">
+    <div class="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+        <div>
+            <span class="status-pill">
+                <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+                Based in {site.location}
+            </span>
+
+            <p class="mt-6 font-display text-[clamp(2.5rem,7vw,4rem)] font-medium leading-[1.05] tracking-tight text-ink">
+                hello,
+            </p>
+            <h1 class="mt-1 font-display text-[clamp(2.75rem,8vw,4.5rem)] font-medium leading-[1.05] tracking-tight text-ink">
+                I'm <span class="name-mark">{site.name}</span>
+            </h1>
+            <p class="mt-3 font-display text-lg font-medium text-accent sm:text-xl">
+                aka giofolf
+            </p>
+
+            <p class="mt-6 max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
+                {site.bio}
+            </p>
+
+            <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                {roles.map((role) => (
+                    <span class="flex items-center gap-2 text-sm text-muted">
+                        <span class="h-1 w-1 rounded-full bg-faint" aria-hidden="true"></span>
+                        {role}
+                    </span>
+                ))}
+            </div>
+
+            <LanguageNote />
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+                <a href="#projects" class="btn btn-primary">
+                    See the projects
+                    <ArrowDownRight size={17} aria-hidden="true" />
+                </a>
+                <a href="https://x.com/giofolf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    Say hi on X
+                </a>
             </div>
         </div>
-        <h1 class="font-display text-[clamp(2.25rem,8vw,3.25rem)] font-extrabold leading-tight tracking-tight text-gradient-animated">
-            {site.name}
-        </h1>
-        <p class="mt-2 text-sm text-muted sm:text-base">
-            {site.age} · {site.location}
-        </p>
-        <p class="mt-4 text-base leading-relaxed text-zinc-300 sm:text-lg">
-            {site.bio}
-        </p>
-        <LanguageNote />
+
+        <div class="w-full max-w-sm justify-self-center lg:justify-self-end">
+            <div class="surface-card p-4">
+                <div class="aspect-[4/5] overflow-hidden rounded-lg border border-border bg-[#f6d9dc]">
+                    <img
+                        src="/gio-full.jpg"
+                        alt={`${site.name} full body art`}
+                        width={900}
+                        height={1536}
+                        class="h-full w-full object-contain"
+                        loading="eager"
+                        decoding="async"
+                    />
+                </div>
+                <div class="mt-4 flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-sm font-semibold text-ink">{site.name}</p>
+                        <p class="text-xs text-faint tabular-nums">{site.age} · Londrina, BR</p>
+                    </div>
+                    <span class="rounded-lg bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent">
+                        that's me
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

@@ -1,0 +1,17 @@
+---
+import { Sparkles } from "@lucide/astro";
+
+interface Props {
+    number: string;
+    label: string;
+}
+
+const { number, label } = Astro.props;
+---
+
+<div class="mb-5 flex items-center gap-2 text-accent">
+    <Sparkles size={14} aria-hidden="true" />
+    <span class="font-mono text-xs font-medium tracking-[0.12em]">
+        {number} / {label}
+    </span>
+</div>

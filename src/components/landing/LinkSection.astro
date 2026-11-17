@@ -3,23 +3,28 @@ import type { LinkGroup } from "../../config/links";
 import { getLinksByGroup, linkGroups } from "../../config/links";
 import LinkButton from "../LinkButton.astro";
 import PixButton from "../PixButton.astro";
+import SectionHeading from "./SectionHeading.astro";
 
 interface Props {
     group: LinkGroup;
+    id?: string;
 }
 
-const { group } = Astro.props;
+const { group, id } = Astro.props;
 const sectionLinks = getLinksByGroup(group);
 const title = linkGroups[group];
+const subtitles: Record<LinkGroup, string> = {
+    social: "The places I hang out around the web.",
+    support: "If you feel like keeping the lights on.",
+    telegram: "Music, art, and other things I post as I go.",
+};
 ---
 
 {sectionLinks.length > 0 && (
-    <section class="scroll-reveal px-4 py-6 sm:px-6">
-        <div class="mx-auto max-w-md md:max-w-lg">
-            <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-                {title}
-            </h2>
-            <div class="stagger-links flex flex-col gap-3">
+    <section id={id} class="scroll-reveal px-4 py-6 sm:px-6">
+        <div class="mx-auto max-w-5xl">
+            <SectionHeading title={title} subtitle={subtitles[group]} />
+            <div class="stagger-links grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {sectionLinks.map((link) => (
                     <LinkButton link={link} />
                 ))}

@@ -9,25 +9,25 @@ import { Copy, Check } from "@lucide/astro";
     type="button"
     id="pix-copy-btn"
     data-pix-key={site.pixKey}
-    class="glass-card glass-card-interactive group flex min-h-[3.75rem] w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-3 text-left hover:bg-white/[0.06] sm:gap-4 sm:px-4"
-    aria-label="Copy Pix key"
+    class="surface-card surface-card-hover group flex min-h-[4.5rem] w-full cursor-pointer items-center gap-4 p-4 text-left"
 >
-    <span class="link-icon-wrap flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#32BCAD] text-white shadow-lg sm:h-11 sm:w-11">
+    <span class="sr-only">Copy Pix key</span>
+    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-white/[0.03] text-[#32BCAD]">
         <BrandIcon name="simple-icons:pix" size={20} />
     </span>
     <span class="min-w-0 flex-1">
-        <span class="block text-sm font-semibold text-zinc-100 sm:text-base">Pix</span>
-        <span class="block truncate text-xs text-muted sm:text-sm">{site.pixKey}</span>
+        <span class="block text-[0.9375rem] font-semibold leading-snug text-ink">Pix</span>
+        <span class="mt-0.5 block truncate text-sm leading-snug text-muted">{site.pixKey}</span>
     </span>
-    <span class="flex shrink-0 items-center gap-2">
+    <span class="flex shrink-0 items-center gap-3">
         <LangBadge languages={["pt"]} />
-        <span id="pix-copy-icon" class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-muted">
-            <Copy size={18} id="pix-icon-copy" aria-hidden="true" />
-            <Check size={18} id="pix-icon-check" class="hidden text-accent-cyan" aria-hidden="true" />
+        <span class="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-white/[0.03] text-muted">
+            <Copy size={16} id="pix-icon-copy" aria-hidden="true" />
+            <Check size={16} id="pix-icon-check" class="hidden text-accent" aria-hidden="true" />
         </span>
     </span>
 </button>
-<p id="pix-feedback" class="mt-2 hidden text-center text-xs font-medium text-accent-cyan" role="status">
+<p id="pix-feedback" class="mt-2 hidden text-center text-sm font-medium text-accent" role="status">
     Copied!
 </p>
 
@@ -46,13 +46,10 @@ import { Copy, Check } from "@lucide/astro";
             feedback?.classList.remove("hidden");
             iconCopy?.classList.add("hidden");
             iconCheck?.classList.remove("hidden");
-            btn.setAttribute("aria-label", "Pix key copied");
-
             window.setTimeout(() => {
                 feedback?.classList.add("hidden");
                 iconCopy?.classList.remove("hidden");
                 iconCheck?.classList.add("hidden");
-                btn.setAttribute("aria-label", "Copy Pix key");
             }, 2000);
         } catch {
             feedback!.textContent = "Could not copy. Select manually.";

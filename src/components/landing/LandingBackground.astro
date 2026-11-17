@@ -1,29 +1,88 @@
-<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-    <div class="absolute inset-0 bg-surface"></div>
+---
+// A small night scene for the top of the page: sky, stars, crescent moon and a treeline.
+const stars = Array.from({ length: 90 }, (_, i) => ({
+    x: (i * 37.7) % 100,
+    y: (i * 61.3) % 82,
+    size: i % 9 === 0 ? 3 : i % 4 === 0 ? 2 : 1.4,
+    o: 0.3 + ((i * 13) % 60) / 100,
+    glow: 4 + (i % 5) * 2,
+    dur: 3 + (i % 7),
+    delay: (i % 11) * 0.4,
+}));
+
+const trees = Array.from({ length: 40 }, (_, i) => ({
+    x: i * 40 + ((i * 17) % 22) - 12,
+    w: 30 + (i % 5) * 9,
+    h: 55 + ((i * 29) % 95),
+    o: 0.78 + (i % 4) * 0.06,
+}));
+---
+
+<div class="pointer-events-none absolute inset-x-0 top-0 z-0 h-[820px] overflow-hidden" aria-hidden="true">
     <div
-        class="mesh-blob absolute -left-1/4 -top-1/4 h-[75vmin] w-[75vmin] rounded-full opacity-45 blur-[90px]"
-        style="background: radial-gradient(circle, #8b5cf6 0%, transparent 68%); animation: mesh-drift 14s ease-in-out infinite;"
+        class="absolute inset-0"
+        style="background: linear-gradient(180deg, #0e1c17 0%, #0a1410 48%, #0b0b0d 100%);"
     ></div>
+
+    <div class="stars absolute inset-0">
+        {stars.map((star) => (
+            <span
+                class="absolute rounded-full bg-[#e8f5c0]"
+                style={`left:${star.x}%; top:${star.y}%; width:${star.size}px; height:${star.size}px; --o:${star.o}; box-shadow:0 0 ${star.glow}px ${star.size / 2}px rgba(232,245,192,0.5); animation:twinkle ${star.dur}s ease-in-out ${star.delay}s infinite;`}
+            ></span>
+        ))}
+    </div>
+
+    <div class="sparkles absolute inset-0">
+        {[
+            { x: 18, y: 24, s: 18, d: 0 },
+            { x: 71, y: 16, s: 14, d: 1.2 },
+            { x: 88, y: 48, s: 16, d: 2.1 },
+            { x: 33, y: 62, s: 12, d: 0.6 },
+            { x: 58, y: 8, s: 11, d: 1.8 },
+            { x: 8, y: 44, s: 13, d: 2.6 },
+        ].map((spark) => (
+            <svg
+                class="absolute text-accent"
+                style={`left:${spark.x}%; top:${spark.y}%; width:${spark.s}px; height:${spark.s}px; --o:0.85; animation:twinkle ${4 + spark.d}s ease-in-out ${spark.d}s infinite;`}
+                viewBox="0 0 24 24"
+                fill="currentColor"
+            >
+                <path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path>
+            </svg>
+        ))}
+    </div>
+
+    <div class="moon absolute right-[10%] top-[9%] h-24 w-24 sm:right-[14%] sm:top-[11%] sm:h-32 sm:w-32">
+        <svg viewBox="0 0 100 100" class="h-full w-full" aria-hidden="true">
+            <defs>
+                <mask id="moon-crescent">
+                    <rect width="100" height="100" fill="white"></rect>
+                    <circle cx="64" cy="36" r="41" fill="black"></circle>
+                </mask>
+            </defs>
+            <circle cx="50" cy="50" r="42" fill="#f3edc4" mask="url(#moon-crescent)"></circle>
+        </svg>
+    </div>
+
+    <svg
+        class="absolute inset-x-0 bottom-0 h-[220px] w-full"
+        viewBox="0 0 1440 220"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+    >
+        <rect x="0" y="205" width="1440" height="15" fill="#050a07"></rect>
+        {trees.map((tree) => (
+            <polygon
+                points={`${tree.x},220 ${tree.x + tree.w / 2},${220 - tree.h} ${tree.x + tree.w},220`}
+                fill="#050a07"
+                opacity={tree.o}
+            ></polygon>
+        ))}
+    </svg>
+
     <div
-        class="mesh-blob absolute -bottom-1/3 -right-1/4 h-[65vmin] w-[65vmin] rounded-full opacity-40 blur-[90px]"
-        style="background: radial-gradient(circle, #22d3ee 0%, transparent 68%); animation: mesh-drift-alt 17s ease-in-out infinite;"
-    ></div>
-    <div
-        class="mesh-blob absolute left-1/3 top-1/2 h-[55vmin] w-[55vmin] rounded-full opacity-25 blur-[100px]"
-        style="background: radial-gradient(circle, #f0abfc 0%, transparent 70%); animation: mesh-drift 20s ease-in-out infinite reverse;"
-    ></div>
-    <div
-        class="mesh-blob absolute -right-1/4 top-1/4 h-[40vmin] w-[40vmin] rounded-full opacity-20 blur-[80px]"
-        style="background: radial-gradient(circle, #a78bfa 0%, transparent 70%); animation: mesh-drift-alt 12s ease-in-out infinite reverse;"
-    ></div>
-    <!-- Sparkles -->
-    <span class="bg-sparkle absolute left-[12%] top-[18%] h-1 w-1 rounded-full bg-accent-cyan shadow-[0_0_8px_2px_rgba(34,211,238,0.6)]" style="animation: sparkle 4s ease-in-out infinite;"></span>
-    <span class="bg-sparkle absolute left-[78%] top-[22%] h-1.5 w-1.5 rounded-full bg-accent-violet shadow-[0_0_10px_2px_rgba(139,92,246,0.6)]" style="animation: sparkle 5s ease-in-out 1s infinite;"></span>
-    <span class="bg-sparkle absolute left-[85%] top-[62%] h-1 w-1 rounded-full bg-accent-cyan shadow-[0_0_8px_2px_rgba(34,211,238,0.5)]" style="animation: sparkle 3.5s ease-in-out 0.5s infinite;"></span>
-    <span class="bg-sparkle absolute left-[8%] top-[72%] h-1.5 w-1.5 rounded-full bg-fuchsia-400 shadow-[0_0_10px_2px_rgba(240,171,252,0.5)]" style="animation: sparkle 4.5s ease-in-out 2s infinite;"></span>
-    <span class="bg-sparkle absolute left-[45%] top-[8%] h-1 w-1 rounded-full bg-white shadow-[0_0_6px_1px_rgba(255,255,255,0.4)]" style="animation: sparkle 6s ease-in-out 1.5s infinite;"></span>
-    <div
-        class="bg-grain absolute inset-0 opacity-[0.04]"
-        style="background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"); animation: grain-shift 8s ease-in-out infinite;"
+        class="absolute inset-x-0 bottom-0 h-32"
+        style="background: linear-gradient(to bottom, transparent, #0b0b0d);"
     ></div>
 </div>

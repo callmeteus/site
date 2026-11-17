@@ -18,31 +18,66 @@ const pageTitle = title ? `${title} | ${site.name}` : undefined;
     <head>
         <SEO title={pageTitle} description={description} image={image} />
     </head>
-    <body class="min-h-dvh flex flex-col bg-surface text-zinc-200">
-        <header class="sticky top-0 z-50 border-b border-border bg-surface/80 backdrop-blur-xl">
+    <body class="min-h-dvh flex flex-col bg-surface text-ink">
+        <header class="sticky top-0 z-50 border-b border-border bg-surface">
             <nav
-                class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3 sm:px-6"
+                class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6"
                 style="padding-top: max(0.75rem, env(safe-area-inset-top));"
                 aria-label="Main navigation"
             >
-                <a
-                    href="/"
-                    class="font-display text-lg font-bold tracking-tight text-gradient"
-                >
-                    {site.name}
+                <a href="/" class="flex items-center gap-2.5">
+                    <img
+                        src="/avatar.jpg"
+                        alt=""
+                        width={32}
+                        height={32}
+                        class="h-8 w-8 shrink-0 rounded-lg border border-border object-cover"
+                    />
+                    <span class="flex flex-col leading-tight">
+                        <span class="font-display text-sm font-semibold tracking-tight text-ink">
+                            {site.name}
+                        </span>
+                        <span class="font-mono text-[10px] text-faint">
+                            {site.domain.replace("https://", "")}
+                        </span>
+                    </span>
                 </a>
                 <div class="flex items-center gap-1 sm:gap-2">
                     <a
                         href="/"
-                        class="min-h-11 min-w-11 inline-flex items-center justify-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-white/5 hover:text-white"
+                        data-nav="home"
+                        class="nav-link inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-white/[0.04] hover:text-ink"
                     >
                         Home
                     </a>
                     <a
-                        href="/blog"
-                        class="min-h-11 min-w-11 inline-flex items-center justify-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-white/5 hover:text-white"
+                        href="/#about"
+                        data-nav="about"
+                        class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-white/[0.04] hover:text-ink sm:inline-flex"
                     >
-                        Blog
+                        About
+                    </a>
+                    <a
+                        href="/#projects"
+                        data-nav="projects"
+                        class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-white/[0.04] hover:text-ink sm:inline-flex"
+                    >
+                        Projects
+                    </a>
+                    <a
+                        href="/blog"
+                        data-nav="writing"
+                        class="nav-link inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-white/[0.04] hover:text-ink"
+                    >
+                        Writing
+                    </a>
+                    <a
+                        href="https://x.com/giofolf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-primary ml-1 hidden min-h-10 !px-3 !text-sm sm:inline-flex"
+                    >
+                        Say hi
                     </a>
                 </div>
             </nav>
@@ -50,8 +85,49 @@ const pageTitle = title ? `${title} | ${site.name}` : undefined;
         <main class="flex-grow">
             <slot />
         </main>
-        <footer class="border-t border-border py-8 text-center text-sm text-muted">
-            <p>&copy; {new Date().getFullYear()} {site.name} · <a href={site.domain} class="hover:text-accent-cyan transition-colors">{site.domain.replace("https://", "")}</a></p>
+        <footer class="border-t border-border py-8 text-center text-sm text-faint">
+            <p>
+                &copy; {new Date().getFullYear()} {site.name} · <a href={site.domain} class="transition-colors hover:text-ink">{site.domain.replace("https://", "")}</a>
+            </p>
         </footer>
+        <script>
+            const links = [...document.querySelectorAll(".nav-link")];
+            if (links.length) {
+                const sections = [
+                    { id: "top", nav: "home" },
+                    { id: "story", nav: "about" },
+                    { id: "projects", nav: "projects" },
+                    { id: "writing", nav: "writing" },
+                ]
+                    .map((s) => ({ ...s, el: document.getElementById(s.id) }))
+                    .filter((s) => s.el);
+
+                const setActive = (name) => {
+                    links.forEach((link) => {
+                        link.classList.toggle("is-active", link.getAttribute("data-nav") === name);
+                    });
+                };
+
+                if ("IntersectionObserver" in window && sections.length) {
+                    const observer = new IntersectionObserver(
+                        (entries) => {
+                            const visible = entries
+                                .filter((entry) => entry.isIntersecting)
+                                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                            if (visible) {
+                                const match = sections.find((s) => s.el === visible.target);
+                                if (match) setActive(match.nav);
+                            }
+                        },
+                        { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.2, 0.5] }
+                    );
+                    sections.forEach((s) => observer.observe(s.el!));
+                }
+
+                if (window.location.pathname === "/blog" || window.location.pathname.startsWith("/blog/")) {
+                    setActive("writing");
+                }
+            }
+        </script>
     </body>
 </html>

@@ -1,0 +1,54 @@
+---
+import { Gamepad2, PenLine, Music2, ArrowUpRight } from "@lucide/astro";
+
+const areas = [
+    {
+        title: "Games",
+        description: "Tools, mods, and little corners of the web for game communities.",
+        href: "#projects",
+        icon: Gamepad2,
+    },
+    {
+        title: "Writing",
+        description: "Notes on code, game modding, and whatever I'm building right now.",
+        href: "/blog",
+        icon: PenLine,
+    },
+    {
+        title: "Music & art",
+        description: "Unfinished sketches, songs in progress, and fursona art on the side.",
+        href: "https://t.me/gioandsongs",
+        icon: Music2,
+    },
+];
+---
+
+<section id="focus" class="scroll-reveal px-4 py-4 sm:px-6 sm:py-6">
+    <div class="mx-auto max-w-5xl">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {areas.map((area) => (
+                <a
+                    href={area.href}
+                    class="surface-card surface-card-hover group flex flex-col p-5"
+                >
+                    <div class="flex items-center justify-between gap-3">
+                        <span class="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-white/[0.03] text-accent">
+                            <area.icon size={18} aria-hidden="true" />
+                        </span>
+                        <ArrowUpRight
+                            size={15}
+                            class="text-faint transition-colors group-hover:text-ink"
+                            aria-hidden="true"
+                        />
+                    </div>
+                    <h3 class="mt-4 font-display text-base font-semibold text-ink">
+                        {area.title}
+                    </h3>
+                    <p class="mt-1 text-sm leading-relaxed text-muted">
+                        {area.description}
+                    </p>
+                </a>
+            ))}
+        </div>
+    </div>
+</section>

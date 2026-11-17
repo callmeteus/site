@@ -27,7 +27,7 @@ export const links: SiteLink[] = [
         icon: "simple-icons:x",
         group: "social",
         languages: ["pt"],
-        accentClass: "bg-zinc-900 text-white",
+        accentClass: "text-zinc-100",
         external: true,
     },
     {
@@ -37,7 +37,7 @@ export const links: SiteLink[] = [
         icon: "simple-icons:instagram",
         group: "social",
         languages: ["pt"],
-        accentClass: "bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white",
+        accentClass: "text-pink-400",
         external: true,
     },
     {
@@ -47,7 +47,7 @@ export const links: SiteLink[] = [
         icon: "simple-icons:facebook",
         group: "social",
         languages: ["pt"],
-        accentClass: "bg-[#1877F2] text-white",
+        accentClass: "text-blue-400",
         external: true,
     },
     {
@@ -57,7 +57,7 @@ export const links: SiteLink[] = [
         icon: "simple-icons:kofi",
         group: "support",
         languages: ["en", "pt"],
-        accentClass: "bg-[#FF5E5B] text-white",
+        accentClass: "text-rose-400",
         external: true,
     },
     {
@@ -68,7 +68,7 @@ export const links: SiteLink[] = [
         description: "Music & unfinished sketches",
         group: "telegram",
         languages: ["pt"],
-        accentClass: "bg-[#26A5E4] text-white",
+        accentClass: "text-sky-400",
         external: true,
     },
     {
@@ -79,7 +79,7 @@ export const links: SiteLink[] = [
         description: "Fursona art & more",
         group: "telegram",
         languages: ["en"],
-        accentClass: "bg-[#26A5E4] text-white",
+        accentClass: "text-sky-400",
         external: true,
     },
 ];

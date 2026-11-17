@@ -1,0 +1,81 @@
+---
+import { site } from "../../config/site";
+import { Cake, Languages, MapPin } from "@lucide/astro";
+import ChapterLabel from "./ChapterLabel.astro";
+
+const chips = [
+    { label: "TypeScript", highlight: true },
+    { label: "JavaScript" },
+    { label: "PHP" },
+    { label: "Java" },
+    { label: "Zig", highlight: true },
+    { label: "Rust" },
+    { label: "Scala" },
+    { label: "CLI" },
+    { label: "AI", highlight: true },
+];
+
+const stats = [
+    { label: "Age", value: String(site.age), icon: Cake },
+    { label: "Languages", value: "PT · EN", icon: Languages },
+    { label: "Home base", value: "Brazil", icon: MapPin },
+];
+---
+
+<section id="story" class="scroll-reveal scroll-mt-16 px-4 py-16 sm:px-6 sm:py-20">
+    <div class="mx-auto max-w-5xl">
+        <ChapterLabel number="01" label="ABOUT" />
+
+        <h2 class="font-display text-[clamp(2rem,5vw,3rem)] font-medium leading-[1.08] tracking-tight text-ink">
+            developer by day,<br />
+            <span class="name-mark">tinkerer</span> by night.
+        </h2>
+
+        <div class="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+            <div>
+                <p class="text-base leading-[1.75] text-zinc-300">
+                    I'm a <span class="font-semibold text-ink">developer and modder</span> from
+                    {site.location}. Most days I'm building
+                    <span class="font-semibold text-accent">tools for games</span> and writing about
+                    what I learn along the way.
+                </p>
+                <p class="mt-5 text-base leading-[1.75] text-zinc-300">
+                    Away from the keyboard, I make <span class="font-semibold text-ink">music sketches</span>,
+                    draw <span class="font-semibold text-ink">fursona art</span>, and run a couple of
+                    Telegram channels for it. {site.languageNote}
+                </p>
+
+                <div class="mt-7 flex flex-wrap gap-2">
+                    {chips.map((chip) => (
+                        <span class:list={[
+                            "rounded-full border px-3 py-1 font-mono text-xs font-medium",
+                            chip.highlight
+                                ? "border-accent/30 bg-accent-soft text-accent"
+                                : "border-border bg-white/[0.03] text-muted",
+                        ]}>
+                            {chip.label}
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            <div class="surface-card grid grid-cols-1 divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                {stats.map((stat) => (
+                    <div class="flex items-center gap-3 p-5 sm:flex-col sm:items-start sm:gap-3">
+                        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent">
+                            <stat.icon size={16} aria-hidden="true" />
+                        </span>
+                        <div>
+                            <p class="font-mono text-[11px] text-faint">
+                                {stat.label}
+                            </p>
+                            <p class="mt-0.5 font-display text-xl font-semibold tracking-tight text-ink">
+                                {stat.value}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>

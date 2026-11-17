@@ -3,12 +3,12 @@ import { site } from "../../config/site";
 ---
 
 <footer
-    class="scroll-reveal border-t border-border px-4 py-8 text-center text-sm text-muted"
+    class="scroll-reveal border-t border-border px-4 py-8 text-center text-sm text-faint"
     style="padding-bottom: max(2rem, env(safe-area-inset-bottom));"
 >
     <p>
         &copy; {new Date().getFullYear()} {site.name}
-        ·
-        <a href="/blog" class="transition-colors hover:text-accent-cyan">Blog</a>
+        <span class="mx-2 text-border">/</span>
+        <a href="/blog" class="transition-colors hover:text-ink">Blog</a>
     </p>
 </footer>

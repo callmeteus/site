@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import SEO from "../components/SEO.astro";
+import { site } from "../config/site";
 
 interface Props {
     title?: string;
@@ -16,7 +17,46 @@ const { title, description, image } = Astro.props;
     <head>
         <SEO title={title} description={description} image={image} />
     </head>
-    <body class="min-h-dvh overflow-x-hidden">
+    <body class="min-h-dvh overflow-x-hidden bg-surface">
+        <header class="sticky top-0 z-50 border-b border-border bg-[#0b0b0d]/90 backdrop-blur-md">
+            <nav
+                class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6"
+                style="padding-top: max(0.75rem, env(safe-area-inset-top));"
+                aria-label="Main navigation"
+            >
+                <a href="/" class="flex items-center gap-2.5">
+                    <img
+                        src="/avatar.jpg"
+                        alt=""
+                        width={32}
+                        height={32}
+                        class="h-8 w-8 shrink-0 rounded-lg border border-border object-cover"
+                    />
+                    <span class="flex flex-col leading-tight">
+                        <span class="font-display text-sm font-semibold tracking-tight text-ink">
+                            {site.name}
+                        </span>
+                        <span class="font-mono text-[10px] text-faint">
+                            {site.domain.replace("https://", "")}
+                        </span>
+                    </span>
+                </a>
+                <div class="flex items-center gap-0.5 sm:gap-1">
+                    <a href="/#top" data-nav="home" class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:text-ink sm:inline-flex">home</a>
+                    <a href="/#story" data-nav="about" class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:text-ink sm:inline-flex">about</a>
+                    <a href="/#projects" data-nav="projects" class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:text-ink sm:inline-flex">projects</a>
+                    <a href="/blog" data-nav="writing" class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:text-ink sm:inline-flex">writing</a>
+                    <a
+                        href="https://x.com/giofolf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-primary ml-1 min-h-10 !px-3 !text-sm"
+                    >
+                        say hi
+                    </a>
+                </div>
+            </nav>
+        </header>
         <slot />
     </body>
 </html>
@@ -42,5 +82,39 @@ const { title, description, image } = Astro.props;
         );
 
         document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
+    }
+
+    const links = [...document.querySelectorAll<HTMLAnchorElement>(".nav-link")];
+    if (links.length) {
+        const sections = [
+            { id: "top", nav: "home" },
+            { id: "story", nav: "about" },
+            { id: "projects", nav: "projects" },
+            { id: "writing", nav: "writing" },
+        ]
+            .map((s) => ({ ...s, el: document.getElementById(s.id) }))
+            .filter((s): s is { id: string; nav: string; el: HTMLElement } => Boolean(s.el));
+
+        const setActive = (name: string) => {
+            links.forEach((link) => {
+                link.classList.toggle("is-active", link.dataset.nav === name);
+            });
+        };
+
+        if ("IntersectionObserver" in window && sections.length) {
+            const navObserver = new IntersectionObserver(
+                (entries) => {
+                    const visible = entries
+                        .filter((entry) => entry.isIntersecting)
+                        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                    if (visible) {
+                        const match = sections.find((s) => s.el === visible.target);
+                        if (match) setActive(match.nav);
+                    }
+                },
+                { rootMargin: "-25% 0px -65% 0px", threshold: [0, 0.2, 0.5] }
+            );
+            sections.forEach((s) => navObserver.observe(s.el));
+        }
     }
 </script>

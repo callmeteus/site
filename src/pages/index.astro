@@ -2,6 +2,8 @@
 import LandingLayout from "../layouts/LandingLayout.astro";
 import LandingBackground from "../components/landing/LandingBackground.astro";
 import LandingHero from "../components/landing/LandingHero.astro";
+import AboutSection from "../components/landing/AboutSection.astro";
+import FocusStrip from "../components/landing/FocusStrip.astro";
 import LinkSection from "../components/landing/LinkSection.astro";
 import ProjectsSection from "../components/landing/ProjectsSection.astro";
 import BlogTeaser from "../components/landing/BlogTeaser.astro";
@@ -12,11 +14,15 @@ import LandingFooter from "../components/landing/LandingFooter.astro";
     <LandingBackground />
     <div class="relative z-10">
         <LandingHero />
-        <LinkSection group="social" />
-        <LinkSection group="support" />
-        <LinkSection group="telegram" />
-        <ProjectsSection />
-        <BlogTeaser />
+        <div class="dot-grid">
+            <AboutSection />
+            <FocusStrip />
+            <LinkSection group="social" id="connect" />
+            <LinkSection group="support" />
+            <LinkSection group="telegram" />
+            <ProjectsSection />
+            <BlogTeaser />
+        </div>
         <LandingFooter />
     </div>
 </LandingLayout>

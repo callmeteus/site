@@ -13,34 +13,34 @@ const { link } = Astro.props;
 
 <a
     href={link.href}
-    class="glass-card glass-card-interactive group flex min-h-[3.75rem] w-full items-center gap-3 rounded-2xl px-3 py-3 hover:bg-white/[0.06] sm:gap-4 sm:px-4"
+    class="surface-card surface-card-hover group flex min-h-[4.5rem] items-center gap-4 p-4"
     target={link.external ? "_blank" : undefined}
     rel={link.external ? "noopener noreferrer" : undefined}
 >
     <span
         class:list={[
-            "link-icon-wrap flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg sm:h-11 sm:w-11",
+            "flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-white/[0.03]",
             link.accentClass,
         ]}
     >
-        <BrandIcon name={link.icon} size={20} class="shrink-0" />
+        <BrandIcon name={link.icon} size={20} />
     </span>
-    <span class="min-w-0 flex-1 text-left">
-        <span class="block truncate text-sm font-semibold text-zinc-100 sm:text-base">
+    <span class="min-w-0 flex-1">
+        <span class="block text-[0.9375rem] font-semibold leading-snug text-ink">
             {link.label}
         </span>
         {link.description && (
-            <span class="block truncate text-xs text-muted sm:text-sm">
+            <span class="mt-0.5 block text-sm leading-snug text-muted">
                 {link.description}
             </span>
         )}
     </span>
-    <span class="flex shrink-0 items-center gap-2">
+    <span class="flex shrink-0 items-center gap-3">
         <LangBadge languages={link.languages} />
         {link.external && (
             <ArrowUpRight
                 size={16}
-                class="arrow-nudge text-muted opacity-60 sm:opacity-50"
+                class="text-faint transition-colors group-hover:text-ink"
                 aria-hidden="true"
             />
         )}

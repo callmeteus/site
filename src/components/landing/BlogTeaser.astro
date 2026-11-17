@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { ArrowRight } from "@lucide/astro";
+import ChapterLabel from "./ChapterLabel.astro";
 
 const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -8,29 +9,38 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
 ---
 
 {recentPosts.length > 0 && (
-    <section class="scroll-reveal px-4 py-6 pb-12 sm:px-6 sm:pb-16">
-        <div class="mx-auto max-w-md md:max-w-lg">
-            <div class="mb-4 flex items-end justify-between gap-4">
-                <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-                    Latest writing
-                </h2>
-                <a
-                    href="/blog"
-                    class="group/viewall inline-flex min-h-11 items-center gap-1 text-sm font-medium text-accent-cyan transition-all hover:gap-2 hover:text-accent-violet"
-                >
-                    View all
-                    <ArrowRight size={16} class="arrow-nudge transition-transform group-hover/viewall:translate-x-0.5" aria-hidden="true" />
-                </a>
+    <section id="writing" class="scroll-reveal scroll-mt-16 px-4 py-6 pb-12 sm:px-6 sm:pb-16">
+        <div class="mx-auto max-w-5xl">
+            <ChapterLabel number="03" label="THE JOURNAL" />
+
+            <div class="mb-5">
+                <div class="flex items-end justify-between gap-4">
+                    <div class="section-rule min-w-0 flex-1">
+                        <h2 class="font-display text-[clamp(1.5rem,3vw,2rem)] font-medium tracking-tight text-ink">
+                            latest <span class="name-mark">writing</span>
+                        </h2>
+                    </div>
+                    <a
+                        href="/blog"
+                        class="group/viewall inline-flex min-h-11 shrink-0 items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+                    >
+                        View all
+                        <ArrowRight size={15} class="transition-transform group-hover/viewall:translate-x-0.5" aria-hidden="true" />
+                    </a>
+                </div>
+                <p class="mt-2 text-sm leading-relaxed text-muted">
+                    Notes on code, modding, and things I'm building.
+                </p>
             </div>
-            <div class="stagger-links flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:grid sm:grid-cols-1 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0">
+            <div class="stagger-links grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {recentPosts.map((post) => (
                     <a
                         href={`/blog/${post.id}`}
-                        class="glass-card glass-card-interactive group w-[min(85vw,20rem)] shrink-0 snap-start rounded-2xl p-4 hover:bg-white/[0.06] sm:w-auto"
+                        class="surface-card surface-card-hover group flex flex-col p-5"
                     >
                         <time
                             datetime={post.data.date.toISOString()}
-                            class="text-xs font-medium text-muted"
+                            class="text-xs text-faint tabular-nums"
                         >
                             {post.data.date.toLocaleDateString("en-US", {
                                 month: "short",
@@ -38,18 +48,16 @@ const recentPosts = (await getCollection("blog", ({ data }) => !data.draft))
                                 year: "numeric",
                             })}
                         </time>
-                        <h3 class="mt-1 font-display text-base font-bold text-zinc-100 transition-colors group-hover:text-accent-cyan line-clamp-2">
+                        <h3 class="mt-2 font-display text-base font-semibold leading-snug text-ink transition-colors group-hover:text-accent">
                             {post.data.title}
                         </h3>
-                        <p class="mt-1 text-sm text-muted line-clamp-2">
+                        <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">
                             {post.data.description}
                         </p>
                         {post.data.tags.length > 0 && (
-                            <div class="mt-3 flex flex-wrap gap-1">
+                            <div class="mt-4 flex flex-wrap gap-x-3 gap-y-1">
                                 {post.data.tags.slice(0, 3).map((tag) => (
-                                    <span class="rounded-md bg-white/5 px-2 py-0.5 text-[10px] font-medium text-zinc-400 transition-colors group-hover:bg-accent-violet/10">
-                                        {tag}
-                                    </span>
+                                    <span class="text-xs text-faint">{tag}</span>
                                 ))}
                             </div>
                         )}

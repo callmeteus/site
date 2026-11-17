@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { site } from "../../config/site";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -11,10 +10,10 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
     title="Blog"
     description="Micro tech blog: game modding, dev notes, and project writeups."
 >
-    <section class="px-4 py-10 sm:px-6 sm:py-14">
+    <section class="px-4 py-12 sm:px-6 sm:py-16">
         <div class="mx-auto max-w-3xl">
-            <header class="mb-10 text-center">
-                <h1 class="font-display text-[clamp(2rem,6vw,2.75rem)] font-bold text-gradient">
+            <header class="mb-10">
+                <h1 class="font-display text-[clamp(2.25rem,6vw,3rem)] font-medium tracking-tight text-ink">
                     Blog
                 </h1>
                 <p class="mt-3 text-muted">
@@ -23,16 +22,16 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
             </header>
 
             {posts.length > 0 ? (
-                <ul class="flex flex-col gap-4">
+                <ul class="flex flex-col gap-3">
                     {posts.map((post) => (
                         <li>
                             <a
                                 href={`/blog/${post.id}`}
-                                class="glass-card group block rounded-2xl p-5 transition-all duration-200 hover:border-accent-violet/30 hover:bg-white/[0.06]"
+                                class="surface-card surface-card-hover group block p-5"
                             >
                                 <time
                                     datetime={post.data.date.toISOString()}
-                                    class="text-xs font-medium text-muted"
+                                    class="text-xs text-faint tabular-nums"
                                 >
                                     {post.data.date.toLocaleDateString("en-US", {
                                         month: "long",
@@ -40,20 +39,16 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
                                         year: "numeric",
                                     })}
                                 </time>
-                                <h2 class="mt-1 font-display text-xl font-bold text-zinc-100 transition-colors group-hover:text-accent-cyan">
+                                <h2 class="mt-1 font-display text-xl font-semibold leading-snug text-ink transition-colors group-hover:text-accent">
                                     {post.data.title}
                                 </h2>
                                 <p class="mt-2 text-sm leading-relaxed text-muted">
                                     {post.data.description}
                                 </p>
                                 {post.data.tags.length > 0 && (
-                                    <ul class="mt-3 flex flex-wrap gap-1.5">
+                                    <ul class="mt-3 flex flex-wrap gap-x-3 gap-y-1">
                                         {post.data.tags.map((tag) => (
-                                            <li>
-                                                <span class="rounded-md bg-white/5 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-400">
-                                                    {tag}
-                                                </span>
-                                            </li>
+                                            <li class="text-xs text-faint">{tag}</li>
                                         ))}
                                     </ul>
                                 )}
@@ -62,7 +57,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
                     ))}
                 </ul>
             ) : (
-                <p class="py-16 text-center text-muted">No posts yet. Check back soon!</p>
+                <p class="py-16 text-center text-muted">No posts yet. Check back soon.</p>
             )}
         </div>
     </section>
