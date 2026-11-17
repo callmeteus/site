@@ -1,0 +1,64 @@
+---
+import { events } from "../../config/events";
+import { ArrowUpRight, MapPin } from "@lucide/astro";
+import ChapterLabel from "./ChapterLabel.astro";
+---
+
+{events.length > 0 && (
+    <section id="events" class="scroll-reveal scroll-mt-16 px-4 py-16 sm:px-6 sm:py-20">
+        <div class="mx-auto max-w-5xl">
+            <ChapterLabel number="04" label="ON THE ROAD" />
+
+            <h2 class="font-display text-[clamp(2rem,5vw,3rem)] font-medium leading-[1.08] tracking-tight text-ink">
+                see you <span class="name-mark">out there</span>
+            </h2>
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+                Furry conventions and meetups I'm planning to attend. Come say hi if you're around.
+            </p>
+
+            <div class="stagger-links mt-8 flex flex-col gap-3">
+                {events.map((event) => (
+                    <a
+                        href={event.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="surface-card surface-card-hover group flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:gap-6"
+                    >
+                        <div class="flex shrink-0 items-baseline gap-2 sm:w-28 sm:flex-col sm:items-start sm:gap-0">
+                            <span class="font-display text-xl font-semibold leading-none text-ink tabular-nums">
+                                {event.day}
+                            </span>
+                            <span class="font-mono text-xs font-semibold tracking-[0.12em] text-accent">
+                                {event.month}
+                            </span>
+                            <span class="font-mono text-[11px] text-faint sm:mt-1">
+                                {event.year}
+                            </span>
+                        </div>
+
+                        <div class="min-w-0 flex-1">
+                            <h3 class="font-display text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-accent">
+                                {event.name}
+                            </h3>
+                            <p class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+                                <MapPin size={14} class="shrink-0 text-faint" aria-hidden="true" />
+                                <span>{event.location}</span>
+                                <span class="text-faint" aria-hidden="true">·</span>
+                                <span>{event.detail}</span>
+                            </p>
+                            <p class="mt-1 font-mono text-[11px] text-faint tabular-nums">
+                                {event.date}
+                            </p>
+                        </div>
+
+                        <ArrowUpRight
+                            size={18}
+                            class="hidden shrink-0 text-faint transition-colors group-hover:text-ink sm:block"
+                            aria-hidden="true"
+                        />
+                    </a>
+                ))}
+            </div>
+        </div>
+    </section>
+)}

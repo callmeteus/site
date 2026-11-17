@@ -72,6 +72,13 @@ const pageTitle = title ? `${title} | ${site.name}` : undefined;
                     >
                         Writing
                     </a>
+                    <a
+                        href="/#events"
+                        data-nav="events"
+                        class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-tile-hover hover:text-ink sm:inline-flex"
+                    >
+                        Events
+                    </a>
                     <div class="ml-1 flex items-center gap-1.5">
                         <ThemeToggle />
                         <a
@@ -102,6 +109,7 @@ const pageTitle = title ? `${title} | ${site.name}` : undefined;
                     { id: "story", nav: "about" },
                     { id: "projects", nav: "projects" },
                     { id: "writing", nav: "writing" },
+                    { id: "events", nav: "events" },
                 ]
                     .map((s) => ({ ...s, el: document.getElementById(s.id) }))
                     .filter((s) => s.el);
