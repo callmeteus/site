@@ -1,0 +1,37 @@
+---
+import { Icon as SimpleIcon } from "astro-icon/components";
+import {
+    Terminal,
+    Sparkles,
+    ShieldCheck,
+    Clapperboard,
+    Music2,
+    AudioLines,
+} from "@lucide/astro";
+
+interface Props {
+    name: string;
+    size?: number;
+}
+
+const { name, size = 14 } = Astro.props;
+
+const lucideIcons: Record<string, any> = {
+    terminal: Terminal,
+    sparkles: Sparkles,
+    "shield-check": ShieldCheck,
+    clapperboard: Clapperboard,
+    "music-2": Music2,
+    "audio-lines": AudioLines,
+};
+
+const isSimple = name.startsWith("si:");
+const simpleName = `simple-icons:${name.slice(3)}`;
+const LucideIcon = lucideIcons[name.slice(7)];
+---
+
+{isSimple ? (
+    <SimpleIcon name={simpleName} width={size} height={size} aria-hidden="true" />
+) : LucideIcon ? (
+    <LucideIcon size={size} aria-hidden="true" />
+) : null}

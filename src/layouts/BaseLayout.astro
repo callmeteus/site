@@ -59,6 +59,13 @@ const pageTitle = title ? `${title} | ${site.name}` : undefined;
                         About
                     </a>
                     <a
+                        href="/#toolbox"
+                        data-nav="toolbox"
+                        class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-tile-hover hover:text-ink sm:inline-flex"
+                    >
+                        Tools
+                    </a>
+                    <a
                         href="/#projects"
                         data-nav="projects"
                         class="nav-link hidden min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted transition-colors hover:bg-tile-hover hover:text-ink sm:inline-flex"
@@ -107,6 +114,7 @@ const pageTitle = title ? `${title} | ${site.name}` : undefined;
                 const sections = [
                     { id: "top", nav: "home" },
                     { id: "story", nav: "about" },
+                    { id: "toolbox", nav: "toolbox" },
                     { id: "projects", nav: "projects" },
                     { id: "writing", nav: "writing" },
                     { id: "events", nav: "events" },

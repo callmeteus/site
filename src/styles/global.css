@@ -231,6 +231,32 @@ body {
         color: var(--color-accent);
     }
 
+    .filter-btn {
+        border-radius: 9999px;
+        border: 1px solid var(--color-border);
+        background-color: var(--color-surface-raised);
+        padding: 0.375rem 0.875rem;
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--color-muted);
+        transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .filter-btn:hover {
+        border-color: var(--color-faint);
+        color: var(--color-ink);
+    }
+
+    .filter-btn.is-active {
+        border-color: var(--color-accent);
+        background-color: var(--color-accent-soft);
+        color: var(--color-accent);
+    }
+
     .sky-gradient {
         background: linear-gradient(
             180deg,
