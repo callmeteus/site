@@ -55,7 +55,7 @@ const actionLabel = (href: string) =>
                             </p>
                             <div class="mt-5 flex flex-wrap gap-2">
                                 {project.tags.map((tag) => (
-                                    <span class="rounded-full border border-border bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-muted">
+                                    <span class="rounded-full border border-border bg-tile px-2.5 py-1 font-mono text-[11px] text-muted">
                                         {tag}
                                     </span>
                                 ))}
@@ -65,7 +65,7 @@ const actionLabel = (href: string) =>
                                 <ArrowUpRight size={16} aria-hidden="true" />
                             </span>
                         </div>
-                        <div class="flex flex-col justify-center border-t border-border bg-[#0d0f0d] p-6 font-mono text-xs leading-7 text-[#a7d992] sm:p-8 md:border-l md:border-t-0">
+                        <div class="flex flex-col justify-center border-t border-border bg-terminal p-6 font-mono text-xs leading-7 text-terminal-text sm:p-8 md:border-l md:border-t-0">
                             <p class="text-faint">$ project --info {project.id}</p>
                             <p>stack &nbsp;&nbsp; {project.tags.join(" · ")}</p>
                             <p>scope &nbsp; {project.scope}</p>

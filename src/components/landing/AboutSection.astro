@@ -33,13 +33,13 @@ const stats = [
 
         <div class="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
             <div>
-                <p class="text-base leading-[1.75] text-zinc-300">
+                <p class="text-base leading-[1.75] text-body">
                     I'm a <span class="font-semibold text-ink">developer and modder</span> from
                     {site.location}. Most days I'm building
                     <span class="font-semibold text-accent">tools for games</span> and writing about
                     what I learn along the way.
                 </p>
-                <p class="mt-5 text-base leading-[1.75] text-zinc-300">
+                <p class="mt-5 text-base leading-[1.75] text-body">
                     Away from the keyboard, I make <span class="font-semibold text-ink">music sketches</span>,
                     draw <span class="font-semibold text-ink">fursona art</span>, and run a couple of
                     Telegram channels for it. {site.languageNote}
@@ -51,7 +51,7 @@ const stats = [
                             "rounded-full border px-3 py-1 font-mono text-xs font-medium",
                             chip.highlight
                                 ? "border-accent/30 bg-accent-soft text-accent"
-                                : "border-border bg-white/[0.03] text-muted",
+                                : "border-border bg-tile text-muted",
                         ]}>
                             {chip.label}
                         </span>

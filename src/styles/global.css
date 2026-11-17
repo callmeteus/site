@@ -2,22 +2,58 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-    /* Neutral ramp */
+    /* Night is the default. Day overrides these in [data-theme="day"]. */
     --color-surface: #0b0b0d;
     --color-surface-raised: #141417;
     --color-surface-sunken: #101013;
     --color-border: #292930;
     --color-ink: #f4f4f5;
+    --color-body: #d4d4d8;
     --color-muted: #a1a1aa;
     --color-faint: #85858e;
-
-    /* One warm brand accent */
+    --color-tile: rgb(255 255 255 / 0.03);
+    --color-tile-hover: rgb(255 255 255 / 0.06);
     --color-accent: #f0b429;
     --color-accent-soft: rgb(240 180 41 / 0.12);
+    --color-art-bg: #f6d9dc;
+    --color-terminal: #0d0f0d;
+    --color-terminal-text: #a7d992;
+    --color-chip-green: #a7d992;
+    --color-chip-cream: #f3ead3;
+    --color-sky-top: #103a5c;
+    --color-sky-mid: #0b2136;
+    --color-star: #e8f5c0;
+    --color-moon: #f3edc4;
+    --color-tree: #050a07;
 
     --font-display: "Syne", system-ui, sans-serif;
     --font-sans: "DM Sans", system-ui, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+[data-theme="day"] {
+    --color-surface: #edf3f8;
+    --color-surface-raised: #ffffff;
+    --color-surface-sunken: #e4edf4;
+    --color-border: #cbd9e4;
+    --color-ink: #0c1b27;
+    --color-body: #24394a;
+    --color-muted: #4d6272;
+    --color-faint: #607484;
+    --color-tile: rgb(12 27 39 / 0.045);
+    --color-tile-hover: rgb(12 27 39 / 0.08);
+    --color-accent: #a8690a;
+    --color-accent-soft: rgb(168 105 10 / 0.12);
+    --color-art-bg: #f6d9dc;
+    --color-terminal: #0d1b26;
+    --color-terminal-text: #86d9a6;
+    --color-chip-green: #1d7a3f;
+    --color-chip-cream: #6b4a1f;
+    --color-sky-top: #84c9f3;
+    --color-sky-mid: #b3dcf8;
+    --color-star: #ffffff;
+    --color-moon: #fff4c2;
+    --color-tree: #2c5540;
 }
 
 html {
@@ -52,8 +88,8 @@ body {
     }
 
     .surface-card-hover:hover {
-        border-color: #3f3f47;
-        background-color: #19191d;
+        border-color: var(--color-faint);
+        background-color: var(--color-surface-sunken);
         transform: translateY(-2px);
     }
 
@@ -161,7 +197,7 @@ body {
     }
 
     .btn-primary:hover {
-        background-color: #ffc94a;
+        filter: brightness(1.12);
         transform: translateY(-2px);
     }
 
@@ -172,8 +208,8 @@ body {
     }
 
     .btn-secondary:hover {
-        border-color: #3f3f47;
-        background-color: #19191d;
+        border-color: var(--color-faint);
+        background-color: var(--color-surface-sunken);
         transform: translateY(-2px);
     }
 
@@ -186,7 +222,7 @@ body {
     }
 
     .dot-grid {
-        background-image: radial-gradient(circle, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+        background-image: radial-gradient(circle, rgb(128 128 128 / 0.09) 1px, transparent 1px);
         background-size: 22px 22px;
     }
 
@@ -194,6 +230,54 @@ body {
         background-color: var(--color-accent-soft);
         color: var(--color-accent);
     }
+
+    .sky-gradient {
+        background: linear-gradient(
+            180deg,
+            var(--color-sky-top) 0%,
+            var(--color-sky-mid) 48%,
+            var(--color-surface) 100%
+        );
+    }
+
+    .sky-fade {
+        background: linear-gradient(to bottom, transparent, var(--color-surface));
+    }
+
+    .sun {
+        display: none;
+        border-radius: 9999px;
+        background: #ffd75e;
+        box-shadow: 0 0 60px 20px rgb(255 215 94 / 0.45);
+    }
+}
+
+.theme-icon-day,
+.theme-label-day {
+    display: none;
+}
+
+[data-theme="day"] .theme-icon-night,
+[data-theme="day"] .theme-label-night {
+    display: none;
+}
+
+[data-theme="day"] .theme-icon-day {
+    display: block;
+}
+
+[data-theme="day"] .theme-label-day {
+    display: inline;
+}
+
+[data-theme="day"] .stars,
+[data-theme="day"] .moon {
+    display: none !important;
+}
+
+[data-theme="day"] .sun {
+    display: block !important;
+    animation: moon-breathe 6s ease-in-out infinite;
 }
 
 @keyframes twinkle {
@@ -234,25 +318,22 @@ body {
     }
 
     .stars > span,
-    .moon {
+    .moon,
+    .sun {
         animation: none !important;
         opacity: var(--o, 1) !important;
     }
 }
 
 .prose {
-    --tw-prose-body: #d4d4d8;
-    --tw-prose-headings: #fafafa;
+    --tw-prose-body: var(--color-body);
+    --tw-prose-headings: var(--color-ink);
     --tw-prose-links: var(--color-accent);
-    --tw-prose-bold: #fafafa;
-    --tw-prose-code: #c4b5fd;
-    --tw-prose-pre-bg: #18181b;
+    --tw-prose-bold: var(--color-ink);
+    --tw-prose-code: var(--color-accent);
+    --tw-prose-pre-bg: var(--color-surface-sunken);
 }
 
 .prose a {
-    text-decoration-color: rgb(167 139 250 / 0.4);
-}
-
-.prose a:hover {
     text-decoration-color: var(--color-accent);
 }

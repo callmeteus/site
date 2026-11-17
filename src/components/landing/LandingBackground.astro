@@ -19,19 +19,30 @@ const trees = Array.from({ length: 40 }, (_, i) => ({
 ---
 
 <div class="pointer-events-none absolute inset-x-0 top-0 z-0 h-[820px] overflow-hidden" aria-hidden="true">
-    <div
-        class="absolute inset-0"
-        style="background: linear-gradient(180deg, #0e1c17 0%, #0a1410 48%, #0b0b0d 100%);"
-    ></div>
+    <div class="sky-gradient absolute inset-0"></div>
 
     <div class="stars absolute inset-0">
         {stars.map((star) => (
             <span
-                class="absolute rounded-full bg-[#e8f5c0]"
-                style={`left:${star.x}%; top:${star.y}%; width:${star.size}px; height:${star.size}px; --o:${star.o}; box-shadow:0 0 ${star.glow}px ${star.size / 2}px rgba(232,245,192,0.5); animation:twinkle ${star.dur}s ease-in-out ${star.delay}s infinite;`}
+                class="bg-star absolute rounded-full"
+                style={`left:${star.x}%; top:${star.y}%; width:${star.size}px; height:${star.size}px; --o:${star.o}; box-shadow:0 0 ${star.glow}px ${star.size / 2}px rgb(232 245 192 / 0.5); animation:twinkle ${star.dur}s ease-in-out ${star.delay}s infinite;`}
             ></span>
         ))}
     </div>
+
+    <div class="moon absolute right-[10%] top-[9%] h-24 w-24 sm:right-[14%] sm:top-[11%] sm:h-32 sm:w-32">
+        <svg viewBox="0 0 100 100" class="h-full w-full" aria-hidden="true">
+            <defs>
+                <mask id="moon-crescent">
+                    <rect width="100" height="100" fill="white"></rect>
+                    <circle cx="64" cy="36" r="41" fill="black"></circle>
+                </mask>
+            </defs>
+            <circle cx="50" cy="50" r="42" class="fill-moon" mask="url(#moon-crescent)"></circle>
+        </svg>
+    </div>
+
+    <div class="sun absolute right-[11%] top-[10%] h-24 w-24 sm:right-[15%] sm:top-[12%] sm:h-32 sm:w-32"></div>
 
     <div class="sparkles absolute inset-0">
         {[
@@ -53,36 +64,21 @@ const trees = Array.from({ length: 40 }, (_, i) => ({
         ))}
     </div>
 
-    <div class="moon absolute right-[10%] top-[9%] h-24 w-24 sm:right-[14%] sm:top-[11%] sm:h-32 sm:w-32">
-        <svg viewBox="0 0 100 100" class="h-full w-full" aria-hidden="true">
-            <defs>
-                <mask id="moon-crescent">
-                    <rect width="100" height="100" fill="white"></rect>
-                    <circle cx="64" cy="36" r="41" fill="black"></circle>
-                </mask>
-            </defs>
-            <circle cx="50" cy="50" r="42" fill="#f3edc4" mask="url(#moon-crescent)"></circle>
-        </svg>
-    </div>
-
     <svg
         class="absolute inset-x-0 bottom-0 h-[220px] w-full"
         viewBox="0 0 1440 220"
         preserveAspectRatio="none"
         aria-hidden="true"
     >
-        <rect x="0" y="205" width="1440" height="15" fill="#050a07"></rect>
+        <rect x="0" y="205" width="1440" height="15" class="fill-tree"></rect>
         {trees.map((tree) => (
             <polygon
                 points={`${tree.x},220 ${tree.x + tree.w / 2},${220 - tree.h} ${tree.x + tree.w},220`}
-                fill="#050a07"
+                class="fill-tree"
                 opacity={tree.o}
             ></polygon>
         ))}
     </svg>
 
-    <div
-        class="absolute inset-x-0 bottom-0 h-32"
-        style="background: linear-gradient(to bottom, transparent, #0b0b0d);"
-    ></div>
+    <div class="sky-fade absolute inset-x-0 bottom-0 h-32"></div>
 </div>

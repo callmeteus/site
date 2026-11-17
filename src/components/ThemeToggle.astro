@@ -1,0 +1,44 @@
+---
+import { Moon, Sun } from "@lucide/astro";
+---
+
+<button
+    type="button"
+    id="theme-toggle"
+    class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-border bg-surface-raised px-3 text-sm font-medium text-muted transition-colors hover:text-ink"
+    aria-describedby="theme-toggle-hint"
+    title="Modo dia ou noite"
+>
+    <Moon size={16} class="theme-icon-night" aria-hidden="true" />
+    <Sun size={16} class="theme-icon-day" aria-hidden="true" />
+    <span class="theme-label-night">night</span>
+    <span class="theme-label-day">day</span>
+</button>
+<span id="theme-toggle-hint" class="sr-only">Alternar entre o modo dia e o modo noite</span>
+
+<script>
+    const root = document.documentElement;
+    const btn = document.getElementById("theme-toggle");
+    const KEY = "gio-theme";
+
+    const sync = () => {
+        const theme = root.getAttribute("data-theme") || "night";
+        root.classList.toggle("is-day", theme === "day");
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "day" ? "#84c9f3" : "#0b0b0d");
+        if (btn) btn.setAttribute("title", theme === "day" ? "Ativar modo noite" : "Ativar modo dia");
+    };
+
+    sync();
+
+    btn?.addEventListener("click", () => {
+        const next = root.getAttribute("data-theme") === "day" ? "night" : "day";
+        root.setAttribute("data-theme", next);
+        try {
+            localStorage.setItem(KEY, next);
+        } catch {
+            // storage may be unavailable
+        }
+        sync();
+    });
+</script>
