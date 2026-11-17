@@ -1,0 +1,21 @@
+name: deploy-gio-site
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: docker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build imagem e redeploy
+        run: |
+          echo "Commit: ${{ github.sha }}"
+          cd /workspace/gioadmin/gio-site
+          docker build -t gio-site-gio-site:latest .
+          docker service update --force gio-site
+          echo "Deploy concluido"
